@@ -1,3 +1,4 @@
+const moment = require('moment');
 const pokemonList = require('../information/pokemonList');
 
 class Pokemon {
@@ -14,7 +15,8 @@ class Pokemon {
       despawn
     } = details;
 
-
+    this.lat = lat;
+    this.lng = lng;
 
     try {
       this.number = parseInt(number);
@@ -23,10 +25,7 @@ class Pokemon {
       this.stamina = parseInt(stamina);
       this.level = parseInt(level);
       this.cp = parseInt(cp);
-      this.despawn = parseInt(despawn);
-
-      this.lat = parseInt(lat);
-      this.lng = parseInt(lng);
+      this.despawn = (parseInt(despawn) * 1000);
     } catch (e) {
       console.warn('Invalid data for pokemon.');
       console.warn(e.message);
@@ -41,6 +40,18 @@ class Pokemon {
 
   getPercentage() {
     return ((this.attack + this.defence + this.stamina) / 45).toFixed(2) * 100
+  }
+
+  get mapLink() {
+    console.log(this.toString());
+    return `https://www.google.co.uk/maps/@${this.lat},${this.lng},15z`;
+  }
+
+  get despawnTime() {
+    const mDespawn = moment(this.despawn);
+    const timeRemaining = Math.floor(moment.duration(mDespawn.diff(moment())).asMinutes());
+
+    return `${mDespawn.format('MMM Do, h:mm:ssa')} (${timeRemaining} minutes remaining)`;
   }
 
   toString() {
