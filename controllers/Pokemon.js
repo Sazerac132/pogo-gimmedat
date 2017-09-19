@@ -43,7 +43,6 @@ class Pokemon {
   }
 
   get mapLink() {
-    console.log(this.toString());
     return `https://www.google.co.uk/maps/@${this.lat},${this.lng},15z`;
   }
 
@@ -51,11 +50,16 @@ class Pokemon {
     const mDespawn = moment(this.despawn);
     const timeRemaining = Math.floor(moment.duration(mDespawn.diff(moment())).asMinutes());
 
-    return `${mDespawn.format('MMM Do, h:mm:ssa')} (${timeRemaining} minutes remaining)`;
+    return `Expires in ${mDespawn.format('MMM Do, h:mm:ssa')} (${timeRemaining} minutes remaining)`;
   }
 
   toString() {
-    return `Level ${this.level} ${this.name}, ${this.cp} CP, ${this.getPercentage()}% IV.`;
+    return `Level ${this.level} ${this.name}, ${this.cp} CP, ${this.getPercentage()}% IV \
+${this.attack}/${this.defence}/${this.stamina}.`;
+  }
+
+  get reporterText() {
+    return this.toString() + '\n' + this.despawnTime + '\n' + this.mapLink;
   }
 }
 
