@@ -50,8 +50,7 @@ class Map {
       }
     }).then(pokemons => {
       return pokemons.map(pokemon => new Pokemon(pokemon));
-    })
-      .catch(err => {
+    }).catch(err => {
       console.warn(err);
     });
   }
