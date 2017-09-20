@@ -39,11 +39,11 @@ class Pokemon {
   }
 
   getPercentage() {
-    return ((this.attack + this.defence + this.stamina) / 45).toFixed(2) * 100
+    return Math.round(((this.attack + this.defence + this.stamina) / 45) * 100);
   }
 
   get mapLink() {
-    return `https://www.google.co.uk/maps/@${this.lat},${this.lng},15z`;
+    return `https://www.google.com/maps/search/?api=1&query=${this.lat},${this.lng}`;
   }
 
   get despawnTime() {
