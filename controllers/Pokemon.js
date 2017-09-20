@@ -39,7 +39,7 @@ class Pokemon {
   }
 
   getPercentage() {
-    return ((this.attack + this.defence + this.stamina) / 45).toFixed(2) * 100
+    return Math.round(((this.attack + this.defence + this.stamina) / 45) * 100);
   }
 
   get mapLink() {
