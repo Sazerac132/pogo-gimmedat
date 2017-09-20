@@ -43,8 +43,7 @@ class Pokemon {
   }
 
   get mapLink() {
-    console.log(this.toString());
-    return `https://www.google.co.uk/maps/@${this.lat},${this.lng},15z`;
+    return `https://www.google.com/maps/search/?api=1&query=${this.lat},${this.lng}`;
   }
 
   get despawnTime() {
