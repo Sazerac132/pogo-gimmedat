@@ -1,4 +1,7 @@
 const moment = require('moment');
+const md5 = require('md5');
+const _ = require('lodash');
+
 const pokemonList = require('../information/pokemonList');
 
 class Pokemon {
@@ -51,6 +54,11 @@ class Pokemon {
     const timeRemaining = Math.floor(moment.duration(mDespawn.diff(moment())).asMinutes());
 
     return `Expires in ${mDespawn.format('MMM Do, h:mm:ssa')} (${timeRemaining} minutes remaining)`;
+  }
+
+  getUniqueId() {
+    const str = `${this.number}${this.attack}${this.defence}${this.stamina}${this.lat}${this.lng}`;
+    return md5(str);
   }
 
   toString() {
