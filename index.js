@@ -8,5 +8,5 @@ doCheck();
 // setInterval(doCheck, 90000);
 
 function doCheck() {
-  myMap.fetch().then(reporter.post);
+  myMap.fetch().then(reporter.report);
 }
