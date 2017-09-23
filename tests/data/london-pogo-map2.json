@@ -1,0 +1,40 @@
+{
+  "pokemons": [
+    {
+      "pokemon_id": "113",
+      "lat": "51.36348961",
+      "lng": "-0.09164304",
+      "despawn": "1506012117",
+      "disguise": "0",
+      "attack": "2",
+      "defence": "15",
+      "stamina": "10",
+      "move1": "234",
+      "move2": "14",
+      "costume": "0",
+      "gender": "2",
+      "shiny": "0",
+      "form": "0",
+      "cp": "345",
+      "level": "10"
+    },
+    {
+      "pokemon_id": "143",
+      "lat": "51.43755558",
+      "lng": "0.03789494",
+      "despawn": "1506012565",
+      "disguise": "0",
+      "attack": "4",
+      "defence": "15",
+      "stamina": "14",
+      "move1": "212",
+      "move2": "31",
+      "costume": "0",
+      "gender": "2",
+      "shiny": "0",
+      "form": "0",
+      "cp": "1358",
+      "level": "15"
+    }
+  ]
+}
