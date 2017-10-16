@@ -5,8 +5,10 @@ const reporter = new Reporter();
 const myMap = new Map();
 
 doCheck();
-// setInterval(doCheck, 90000);
+setInterval(doCheck, 60000);
 
 function doCheck() {
-  myMap.fetch().then(reporter.report);
+  myMap.fetch()
+    .then(reporter.report)
+    .catch(err => console.error);
 }

@@ -1,5 +1,6 @@
 const rp = require('request-promise-native');
 const url = require('url');
+const pokemonList = require('../information/pokemonList');
 
 const Pokemon = require('./Pokemon');
 
@@ -7,6 +8,10 @@ class Map {
 
   constructor() {
     this.mons = [
+      63,
+      66,
+      74,
+      92,
       113,
       143,
       147,
@@ -17,6 +22,8 @@ class Map {
       247,
       248
     ];
+
+    console.info('Searching for the following mons:', this.mons.map(num => pokemonList[num]).join(', '));
 
     this.url = url.format({
       protocol: 'https',

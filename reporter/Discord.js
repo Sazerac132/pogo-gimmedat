@@ -20,7 +20,7 @@ class DiscordReporter {
 
     this.reported = {};
 
-    this.threshold = 75;
+    this.threshold = 90;
 
     this.clearExpired = this.clearExpired.bind(this);
     this.removeLowIv = this.removeLowIv.bind(this);
@@ -43,7 +43,7 @@ class DiscordReporter {
   }
 
   removeLowIv(pokemons) {
-    let highIvs = pokemons.filter(pokemon => pokemon.getPercentage() > this.threshold);
+    let highIvs = pokemons.filter(pokemon => pokemon.isPerfect());
     return Promise.resolve(highIvs);
   }
 
@@ -71,7 +71,6 @@ class DiscordReporter {
   }
 
   post(textPayload) {
-    console.log(textPayload);
     const uri = url.format({
       protocol: 'https',
       host: 'discordapp.com',
