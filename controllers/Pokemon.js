@@ -57,7 +57,7 @@ class Pokemon {
   }
 
   getUniqueId() {
-    const str = `${this.number}${this.attack}${this.defence}${this.stamina}${this.lat}${this.lng}`;
+    const str = `${this.number}${this.attack}${this.defence}${this.stamina}${this.lat}${this.lng}${this.despawn}`;
     return md5(str);
   }
 

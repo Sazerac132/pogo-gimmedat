@@ -20,28 +20,15 @@ class DiscordReporter {
 
     this.reported = {};
 
-    this.formatPokemonData = this.formatPokemonData.bind(this);
+    this.threshold = 90;
+
     this.clearExpired = this.clearExpired.bind(this);
+    this.removeLowIv = this.removeLowIv.bind(this);
+    this.removeReported = this.removeReported.bind(this);
+    this.cacheReported = this.cacheReported.bind(this);
+    this.toText = this.toText.bind(this);
     this.post = this.post.bind(this);
-  }
-
-  formatPokemonData(pokemons) {
-    pokemons = pokemons.filter(pokemon => pokemon.getPercentage() > 75);
-    let pokemonsToReport = [];
-
-    pokemons.forEach(pokemon => {
-      let pokemonId = pokemon.getUniqueId();
-      if (this.reported.hasOwnProperty(pokemonId)) {
-        return;
-      }
-
-      this.reported[pokemonId] = pokemon.despawn;
-      pokemonsToReport.push(pokemon)
-    });
-
-    return pokemonsToReport
-      .map(pokemon => pokemon.reporterText)
-      .join('\n\n');
+    this.report = this.report.bind(this);
   }
 
   clearExpired() {
@@ -55,9 +42,35 @@ class DiscordReporter {
     }
   }
 
-  post(pokemons) {
-    this.clearExpired();
+  removeLowIv(pokemons) {
+    let highIvs = pokemons.filter(pokemon => pokemon.isPerfect());
+    return Promise.resolve(highIvs);
+  }
 
+  removeReported(pokemons) {
+    let notYetReported = pokemons.filter(pokemon => {
+      let id = pokemon.getUniqueId();
+      return !this.reported.hasOwnProperty(id);
+    });
+    return Promise.resolve(notYetReported);
+  }
+
+  cacheReported(pokemons) {
+    pokemons.forEach(pokemon => {
+      let id = pokemon.getUniqueId();
+      this.reported[id] = pokemon.despawn;
+    });
+    return Promise.resolve(pokemons);
+  }
+
+  toText(pokemons) {
+    let pokemonText = pokemons
+      .map(pokemon => pokemon.reporterText)
+      .join('\n\n');
+    return Promise.resolve(pokemonText);
+  }
+
+  post(textPayload) {
     const uri = url.format({
       protocol: 'https',
       host: 'discordapp.com',
@@ -68,13 +81,23 @@ class DiscordReporter {
       method: 'POST',
       url: uri,
       json: {
-        content: this.formatPokemonData(pokemons)
+        content: textPayload
       },
       headers: {
         'Content-Type': 'application/json',
         Authorization: this.botToken
       }
     });
+  }
+
+  report(pokemons) {
+    this.clearExpired();
+
+    this.removeLowIv(pokemons)
+      .then(this.removeReported)
+      .then(this.cacheReported)
+      .then(this.toText)
+      .then(this.post);
   }
 
 }
