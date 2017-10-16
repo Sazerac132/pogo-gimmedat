@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha ./tests --recursive"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/Sazerac132/pogo-gimmedat#readme",
   "dependencies": {
+    "express": "^4.16.2",
     "lodash": "4.17.4",
     "md5": "2.2.1",
     "moment": "2.18.1",

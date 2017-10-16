@@ -1,5 +1,18 @@
+const express = require('express');
+const app = express();
+
+const port = process.env.PORT_NUMBER || 3000;
+
 const Map = require('./controllers/Map');
 const Reporter = require('./reporter/Discord');
+
+app.get('/health', function(req, res) {
+  res.send('Hello, world!');
+});
+
+app.listen(port, function() {
+  console.log(`Health endpoint available at port ${port}.`);
+});
 
 const reporter = new Reporter();
 const myMap = new Map();
