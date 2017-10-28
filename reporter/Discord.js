@@ -7,12 +7,14 @@ const request = require('request');
 class DiscordReporter {
 
   constructor() {
+
+    let { environment } = process.env;
+
     const {
       botToken,
-      webhook: {
-        id: webhookId, token: webhookToken
-      }
-    } = require('./discordSecrets');
+      webhookId,
+      webhookToken
+    } = (environment === 'live') ? process.env : require('./discordSecrets');
 
     this.botToken = botToken;
     this.webhookId = webhookId;
